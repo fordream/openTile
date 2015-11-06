@@ -34,6 +34,8 @@ import android.net.Uri;
 import com.leff.midi.MidiFile;
 import com.tistory.pflower.epd.BaseActivity;
 
+import junit.framework.Assert;
+
 import javax.microedition.khronos.opengles.GL11;
 
 public class ResourceManager {
@@ -181,8 +183,9 @@ public class ResourceManager {
             if(iter.lastIndexOf('.') == -1)
                 continue;
             try {
-                //InputStream is =
-                MidiFile tempMidi = new MidiFile();
+                AssetManager assetManager = activity.getAssets();
+                InputStream is = assetManager.open("midi/"+iter);
+                MidiFile tempMidi = new MidiFile(is);
                 midiMap.put(iter.substring(0, iter.lastIndexOf('.')), tempMidi);
             } catch (Exception e) {
                 e.printStackTrace();

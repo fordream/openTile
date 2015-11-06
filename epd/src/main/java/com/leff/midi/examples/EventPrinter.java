@@ -1,5 +1,7 @@
 package com.leff.midi.examples;
 
+import android.util.Log;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -13,6 +15,7 @@ import com.leff.midi.util.MidiProcessor;
 public class EventPrinter implements MidiEventListener
 {
     private String mLabel;
+    private MidiProcessor processor;
 
     public EventPrinter(String label)
     {
@@ -37,7 +40,7 @@ public class EventPrinter implements MidiEventListener
     @Override
     public void onEvent(MidiEvent event, long ms)
     {
-        System.out.println(mLabel + " received event: " + event);
+        Log.d("MIDI", event.toString());
     }
 
     @Override
@@ -53,47 +56,24 @@ public class EventPrinter implements MidiEventListener
         }
     }
 
-    public static void main(String[] args)
+    public void startMidiPrinter(MidiFile midi)
     {
-        // 1. Read in a MidiFile
-        MidiFile midi = null;
-        try
-        {
-            midi = new MidiFile(new File("inputmid.mid"));
-        }
-        catch(IOException e)
-        {
-            System.err.println(e);
-            return;
-        }
-
         // 2. Create a MidiProcessor
-        MidiProcessor processor = new MidiProcessor(midi);
+        processor = new MidiProcessor(midi);
 
-        // 3. Register listeners for the events you're interested in
-        EventPrinter ep = new EventPrinter("Individual Listener");
-        processor.registerEventListener(ep, Tempo.class);
-        processor.registerEventListener(ep, NoteOn.class);
-
-        // or listen for all events:
+        // 3. Register listeners for for all events:
         EventPrinter ep2 = new EventPrinter("Listener For All");
         processor.registerEventListener(ep2, MidiEvent.class);
 
         // 4. Start the processor
         processor.start();
+    }
 
-        // Listeners will be triggered in real time with the MIDI events
-        // And you can pause/resume with stop() and start()
-        try
-        {
-            Thread.sleep(10 * 1000);
-            processor.stop();
+    public void start() {
+        processor.start();
+    }
 
-            Thread.sleep(10 * 1000);
-            processor.start();
-        }
-        catch(Exception e)
-        {
-        }
+    public void stop() {
+        processor.stop();
     }
 }
