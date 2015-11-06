@@ -116,22 +116,14 @@ public class ResourceManager {
 
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("tile/");
 
-        String[] files3 = null;
-        try {
-            AssetManager assetMgr = activity.getAssets();
-            files3 = assetMgr.list("tile");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        for (String iter : files3) {
-            if(iter.lastIndexOf('.') == -1)
-                continue;
 
-            TiledTextureRegion _tiled = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, iter, 8, 7);
-            tiledResourceMap.put(iter.substring(0, iter.lastIndexOf('.')), _tiled);
+        TiledTextureRegion _tiled = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "tile.png", 8, 7);
+        tiledResourceMap.put("tile", _tiled);
 
-        }
+        _tiled = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "slime.png", 4, 1);
+        tiledResourceMap.put("slime", _tiled);
+
 
         try{
             gameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(1, 1, 1));
