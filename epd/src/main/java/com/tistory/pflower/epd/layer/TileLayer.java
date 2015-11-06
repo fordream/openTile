@@ -6,6 +6,7 @@ package com.tistory.pflower.epd.layer;
 
 import android.util.Log;
 
+import com.tistory.pflower.epd.sprites.Hero;
 import com.tistory.pflower.epd.sprites.Tile;
 
 import org.andengine.entity.Entity;
@@ -16,11 +17,13 @@ import java.util.Random;
 
 public class TileLayer extends Entity {
 
-    public final int TILE_CNT = 16;
-    public final int WIDTH_CNT = 4;
+    public static final int TILE_CNT = 16;
+    public static final int WIDTH_CNT = 4;
     Random rnd = new Random(System.currentTimeMillis());
 
     public Tile[] tiles;
+
+    public Hero hero;
 
     public TileLayer() {
 
@@ -28,13 +31,17 @@ public class TileLayer extends Entity {
 
         for(int i = 0; i < WIDTH_CNT; i ++) {
             for (int j = 0; j < WIDTH_CNT; j++) {
-                Tile t = new Tile();
+                Tile t = new Tile(rnd.nextInt());
                 attachChild(t);
 
                 tiles[i * WIDTH_CNT + j] = t;
                 t.setLocation(j, i);
+                t.setTileModifier();
             }
         }
+
+        hero = new Hero();
+        attachChild(hero);
     }
 
     public void purge() {
@@ -43,7 +50,7 @@ public class TileLayer extends Entity {
         for (Tile t : tiles) {
             t.purge();
         }
-
+        hero.purge();
     }
 
     public void restart() {

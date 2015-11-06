@@ -6,6 +6,8 @@ import com.tistory.pflower.epd.GameLoopUpdateHandler;
 import com.tistory.pflower.epd.ResourceManager;
 import com.tistory.pflower.epd.andEngineExtension.StairXVelocityModifier;
 import com.tistory.pflower.epd.layer.TileLayer;
+import com.tistory.pflower.epd.sprites.Cube;
+import com.tistory.pflower.epd.sprites.Hero;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
@@ -87,6 +89,35 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
             {
                 targetX = pSceneTouchEvent.getX();
                 targetY = pSceneTouchEvent.getY();
+
+                Hero player = Hero.getSharedInstance();
+
+                if(player != null){
+
+                    // UP
+                    if (targetY < BaseActivity.CAMERA_HEIGHT / 2) {
+                        // 1사분면
+                        if (targetX > BaseActivity.CAMERA_WIDTH / 2) {
+                            player.move(Cube.Direction.UP_RIGHT);
+                        }
+                        // 2사분면
+                        else {
+                            player.move(Cube.Direction.UP_LEFT);
+                        }
+                    }
+                    // DOWN
+                    else {
+                        // 3사분면
+                        if (targetX > BaseActivity.CAMERA_WIDTH / 2) {
+                            player.move(Cube.Direction.DOWN_RIGHT);
+                        }
+                        // 4사분면
+                        else {
+                            player.move(Cube.Direction.DOWN_LEFT);
+                        }
+                    }
+                }
+                // DOWN
             }
             else
             {
