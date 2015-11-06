@@ -189,8 +189,9 @@ public class ResourceManager {
             if(iter.lastIndexOf('.') == -1)
                 continue;
             try {
-                //InputStream is =
-                MidiFile tempMidi = new MidiFile();
+                AssetManager assetMgr = activity.getAssets();
+                InputStream is = assetMgr.open("midi/" + iter);
+                MidiFile tempMidi = new MidiFile(is);
                 midiMap.put(iter.substring(0, iter.lastIndexOf('.')), tempMidi);
             } catch (Exception e) {
                 e.printStackTrace();
