@@ -10,11 +10,11 @@ import org.andengine.entity.sprite.TiledSprite;
  */
 public class Cube extends TiledSprite {
 
-    protected final int WIDTH = 128;
-    protected final int HEIGHT = 128;
+    public static final int WIDTH = 128;
+    public static final int HEIGHT = 128;
 
-    protected final int HEIGHT_HALF = 64;
-    protected final int TILE_MARGIN = 5;
+    public static final int HEIGHT_HALF = 64;
+    public static final int TILE_MARGIN = 5;
 
     protected int locationX;
     protected int locationY;

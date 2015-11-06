@@ -115,7 +115,7 @@ public class Hero extends Cube {
         final float new_screenY = locationX * TILE_HEIGHT_QUAT + locationY * TILE_HEIGHT_QUAT + TILE_HEIGHT_QUAT - WIDTH / 2;
 
         registerEntityModifier(
-                new MoveXModifier(0.25f, getX(), new_screenX) {
+                new MoveXModifier(0.08f, getX(), new_screenX) {
                     @Override
                     protected void onManagedUpdate(float pSecondsElapsed, IEntity pItem) {
                         super.onManagedUpdate(pSecondsElapsed, pItem);
