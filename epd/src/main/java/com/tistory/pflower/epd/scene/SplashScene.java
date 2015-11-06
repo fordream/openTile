@@ -20,10 +20,10 @@ public class SplashScene extends Scene {
         setBackground(new Background(0.09804f, 0.6274f, 0));
         activity = BaseActivity.getSharedInstance();
         Text title1 = new Text(0, 0, activity.mFont,
-                "asd",
+                "glEnable",
                 activity.getVertexBufferObjectManager());
         Text title2 = new Text(0, 0, activity.mFont,
-                "fasf",
+                "(GL_WIN);",
                 activity.getVertexBufferObjectManager());
 
         title1.setPosition(-title1.getWidth(), activity.mCamera.getHeight() / 2);

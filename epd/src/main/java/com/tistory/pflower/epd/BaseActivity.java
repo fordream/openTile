@@ -4,6 +4,7 @@ import org.andengine.engine.Engine;
 import org.andengine.engine.camera.ZoomCamera;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
+import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
 import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.util.FPSLogger;
@@ -20,6 +21,7 @@ import com.tistory.pflower.epd.ResourceManager;
 
 import android.graphics.Typeface;
 import android.util.Log;
+
 
 public class BaseActivity extends SimpleBaseGameActivity {
 
@@ -44,7 +46,7 @@ public class BaseActivity extends SimpleBaseGameActivity {
         mCamera.setZoomFactor(1f);
 
         EngineOptions engineOpt = new EngineOptions(true, ScreenOrientation.LANDSCAPE_SENSOR,
-                new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), mCamera);
+                new FillResolutionPolicy(), mCamera);
         //EngineOptions engineOpt = new EngineOptions(true, ScreenOrientation.LANDSCAPE_SENSOR,
         //				new CroppedResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), mCamera);
         engineOpt.getRenderOptions().setDithering(true);
