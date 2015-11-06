@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, BaseActivity!</string>
+    <string name="app_name">JimVaders tutorial</string>
+    <string name="title_1">*</string>
+    <string name="title_2">pFlower</string>
+    <string name="start">Start</string>
+    <string name="accuracy">Accuracy</string>
+    <string name="result">전투결과</string>
+    <string name="remainPts">잔여 포인트</string>
+    <string name="kills">잔여포인트</string>
+    <string name="meter">진행 거리</string>
+    <string name="sum">총점</string>
+
+</resources>

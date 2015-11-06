@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Google Play game services IDs.
+Save this file as res/values/games-ids.xml in your project.
+-->
+<resources>
+    <string name="app_id">803377381810</string>
+    <string name="achievement_medal_of_honor">CgkIsoOY6LAXEAIQAQ</string>
+    <string name="achievement_antiair_medal">CgkIsoOY6LAXEAIQAg</string>
+    <string name="achievement_the_croix_de_guerre">CgkIsoOY6LAXEAIQAw</string>
+    <string name="achievement_the_sniper_medal">CgkIsoOY6LAXEAIQBA</string>
+    <string name="achievement_shock_trooper_medal">CgkIsoOY6LAXEAIQBQ</string>
+    <string name="achievement_massive_killer_medal">CgkIsoOY6LAXEAIQBg</string>
+    <string name="achievement_no_supply_medal">CgkIsoOY6LAXEAIQBw</string>
+    <string name="achievement_no_recovery_medal">CgkIsoOY6LAXEAIQDg</string>
+    <string name="achievement_zero_damage_medal">CgkIsoOY6LAXEAIQCA</string>
+    <string name="achievement_deviations_shooter_medal">CgkIsoOY6LAXEAIQCQ</string>
+    <string name="achievement_rapid_advance_medal">CgkIsoOY6LAXEAIQCg</string>
+    <string name="achievement_accomplishment_medal">CgkIsoOY6LAXEAIQCw</string>
+    <string name="achievement_the_cross_of_life">CgkIsoOY6LAXEAIQDA</string>
+    <string name="achievement_onslaught_medal">CgkIsoOY6LAXEAIQDQ</string>
+    <string name="achievement_expert_sergeant_medal">CgkIsoOY6LAXEAIQDw</string>
+    <string name="achievement_medal_of_achievements">CgkIsoOY6LAXEAIQEA</string>
+    <string name="leaderboard_score">CgkIsoOY6LAXEAIQEQ</string>
+    <string name="leaderboard_distance">CgkIsoOY6LAXEAIQEg</string>
+    <string name="leaderboard_kill">CgkIsoOY6LAXEAIQEw</string>
+</resources>
