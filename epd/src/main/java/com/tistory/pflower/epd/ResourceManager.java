@@ -1,6 +1,7 @@
 package com.tistory.pflower.epd;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
@@ -30,6 +31,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 
 
+import com.leff.midi.MidiFile;
 import com.tistory.pflower.epd.BaseActivity;
 
 import javax.microedition.khronos.opengles.GL11;
@@ -50,6 +52,7 @@ public class ResourceManager {
     private HashMap<String, BitmapFont> bitmapFontMap = new HashMap<String, BitmapFont>();
     private HashMap<String, Sound> soundMap = new HashMap<String, Sound>();
     private HashMap<String, MediaPlayer> mediaMap = new HashMap<String, MediaPlayer>();
+    private HashMap<String, MidiFile> midiMap = new HashMap<String, MidiFile>();
     private HashMap<BaseTextureRegion, ISpriteVertexBufferObject> sharedTextureMap = new HashMap<>();
 
     private BuildableBitmapTextureAtlas gameTextureAtlas;
@@ -169,6 +172,36 @@ public class ResourceManager {
 
         }
 
+        ////////////////////////////////////////////////
+        //
+        // MIDI
+        //
+        ////////////////////////////////////////////////
+        String[] files4 = null;
+        try {
+            AssetManager assetMgr = activity.getAssets();
+            files4 = assetMgr.list("midi");
+        } catch (IOException e) {
+            e.printStackTrace();;
+        }
+
+        for (String iter : files4) {
+            if(iter.lastIndexOf('.') == -1)
+                continue;
+            try {
+                //InputStream is =
+                MidiFile tempMidi = new MidiFile();
+                midiMap.put(iter.substring(0, iter.lastIndexOf('.')), tempMidi);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        //////////////////////////////////////////////
+        //
+        // Fields
+        //
+        //////////////////////////////////////////////
         Field[] fields=R.raw.class.getFields();
         for(int count=0; count < fields.length; count++){
             String iter = fields[count].getName();
@@ -180,10 +213,7 @@ public class ResourceManager {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
-
-
     }
     public void clear()
     {
@@ -210,6 +240,8 @@ public class ResourceManager {
     public MediaPlayer getMediaByName(String key) {
         return mediaMap.get(key);
     }
+
+    public MidiFile getMidiFileByName(String key) { return midiMap.get(key); }
 
     private void registerTextureRegion(BaseTextureRegion region)
     {
