@@ -22,20 +22,27 @@ public class SimpleTrackPlayer implements Runnable{
     private SimpleNotePlayer simpleNotePlayer;
     private MidiEvent event;
     private float volume = 0.5f;
-    private boolean finished = false;
+    private boolean finished = true;
 
     public void cleaer() {
-        simpleNotePlayer.clear();
+        if(simpleNotePlayer != null)
+            simpleNotePlayer.clear();
     }
 
-    public SimpleTrackPlayer(Context ctx, MidiTrack midiTrack, int trackNo, float volume) {
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public SimpleTrackPlayer(Context ctx, MidiTrack midiTrack, int trackNo, float volume, int offset) {
+        this.offset = offset;
         it = midiTrack.getEvents().iterator();
         this.volume = volume;
         Random random = new Random();
         if(it.hasNext())  {
             event= it.next();
-            simpleNotePlayer = new SimpleNotePlayer(ctx, random.nextInt(40), trackNo);
+            simpleNotePlayer = new SimpleNotePlayer(ctx, random.nextInt(30)+1, trackNo);
             playable = true;
+            finished = false;
         }
     }
 
@@ -66,6 +73,7 @@ public class SimpleTrackPlayer implements Runnable{
                         event = it.next();
                     } else {
                         playable = false;
+                        finished = true;
                         break;
                     }
                 }else {

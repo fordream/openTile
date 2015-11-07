@@ -9,6 +9,7 @@ import java.util.Map;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.util.Log;
 
 public class SimpleNotePlayer extends Thread{
 	public static final int OCTAVE_COUNT = 8; // 옥타브 수
@@ -72,7 +73,8 @@ public class SimpleNotePlayer extends Thread{
 	private Context mCtx;
 
 	public void clear() {
-		sMap.clear();
+		if(sMap != null)
+			sMap.clear();
 	}
 
 	public SimpleNotePlayer(Context ctx, int instrumentNo, int trackNo) {
@@ -89,6 +91,7 @@ public class SimpleNotePlayer extends Thread{
 				// C0 in this program is 0 -> A0 in this program is 9
 				// A0 in general MIDI is 21
 				// So, offset is 12
+				if(soundKey < 12) return;
 				sPool.play(soundKey-12, volume, volume, 0, 0, rate);
 			}
 		}.run();
