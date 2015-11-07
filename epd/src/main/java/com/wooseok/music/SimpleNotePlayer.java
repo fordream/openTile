@@ -71,6 +71,10 @@ public class SimpleNotePlayer extends Thread{
 
 	private Context mCtx;
 
+	public void clear() {
+		sMap.clear();
+	}
+
 	public SimpleNotePlayer(Context ctx, int instrumentNo, int trackNo) {
 		mCtx = ctx;
 		this.trackNo = trackNo;
