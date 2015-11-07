@@ -5,6 +5,7 @@ import android.content.Context;
 import com.leff.midi.MidiFile;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -20,14 +21,20 @@ public class SimpleMidiPlayer {
 
         for(int i = 1; i < midiFile.getTrackCount() && i < THREADCOUNT; i++) {
             SimpleTrackPlayer tempSTP = new SimpleTrackPlayer(ctx, midiFile.getTracks().get(i), i, volume);
-            tempSTP.playSound(12, 1.0f, 1);
+            tempSTP.playSound(12, volume, 1);
             tracks.add(tempSTP);
         }
     }
 
-    public void gogo() {
-        for(SimpleTrackPlayer stp : tracks) {
-            stp.run();
+    public void tickAndPlay() {
+        for(Iterator<SimpleTrackPlayer> it = tracks.iterator() ; !it.hasNext();) {
+            SimpleTrackPlayer stp = it.next();
+            if(stp.isFinished()) {
+                stp.cleaer();
+                tracks.remove(it);
+            }else {
+                stp.run();
+            }
         }
     }
 }

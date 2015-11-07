@@ -1,20 +1,13 @@
 package com.tistory.pflower.epd.scene;
 
 
-import android.media.AudioFormat;
-import android.media.AudioManager;
-import android.media.AudioTrack;
-import android.util.Log;
-
 import com.wooseok.music.SimpleMidiPlayer;
-import com.wooseok.music.SimpleNotePlayer;
 import com.tistory.pflower.epd.BaseActivity;
 import com.tistory.pflower.epd.GameLoopUpdateHandler;
 import com.tistory.pflower.epd.ResourceManager;
 import com.tistory.pflower.epd.layer.TileLayer;
 import com.tistory.pflower.epd.sprites.Cube;
 import com.tistory.pflower.epd.sprites.Hero;
-import com.wooseok.music.SimpleTrackPlayer;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
@@ -188,7 +181,7 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 
     public void update(float pSecondsElapsed) {
         synchronized (this) {
-            simpleMidiPlayer.gogo();
+            simpleMidiPlayer.tickAndPlay();
         }
 
     }
