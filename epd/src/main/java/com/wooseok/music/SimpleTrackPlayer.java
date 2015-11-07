@@ -52,6 +52,7 @@ public class SimpleTrackPlayer implements Runnable{
             playable = true;
             finished = false;
         }
+        tick = -5000;
     }
 
     public void playSound(int note, float volume, int length) {
@@ -63,6 +64,7 @@ public class SimpleTrackPlayer implements Runnable{
     }
 
     public void tickAndPlay() {
+
         if(playable) {
             tick+=offset;
             //If midi tick == My Tick, play a note!

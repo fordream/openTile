@@ -16,8 +16,8 @@ public class Cube extends TiledSprite {
     public static final int HEIGHT_HALF = 64;
     public static final int TILE_MARGIN = 5;
 
-    protected int locationX;
-    protected int locationY;
+    public int locationX;
+    public int locationY;
 
     protected int screenX;
     protected int screenY;

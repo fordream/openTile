@@ -26,8 +26,12 @@ import java.util.Random;
  */
 public class Hero extends Cube {
 
+    private boolean dead;
+
     public Hero() {
         super("slime");
+
+        dead = false;
 
         locationX = 1;
         locationY = 2;
@@ -81,25 +85,25 @@ public class Hero extends Cube {
 
         switch (dir) {
             case UP_RIGHT:
-                Log.d("Hero", "ur --locY : " + locationY);
+               // Log.d("Hero", "ur --locY : " + locationY);
                 if(locationY - 1 < 0) return;
                 --locationY;
                 setCurrentTileIndex(2);
                 break;
             case UP_LEFT:
-                Log.d("Hero", "ur --locX : " + locationX);
+               // Log.d("Hero", "ur --locX : " + locationX);
                 if(locationX - 1 < 0) return;
                 --locationX;
                 setCurrentTileIndex(3);
                 break;
             case DOWN_LEFT:
-                Log.d("Hero", "ur ++locY : " + locationY);
+               // Log.d("Hero", "ur ++locY : " + locationY);
                 if(locationY + 1 >= TileLayer.WIDTH_CNT) return;
                 ++locationY;
                 setCurrentTileIndex(0);
                 break;
             case DOWN_RIGHT:
-                Log.d("Hero", "ur ++locX : " + locationX);
+                //Log.d("Hero", "ur ++locX : " + locationX);
                 if(locationX + 1 >= TileLayer.WIDTH_CNT) return;
                 ++locationX;
                 setCurrentTileIndex(1);
@@ -139,5 +143,13 @@ public class Hero extends Cube {
     }
 
     public void purge() {
+    }
+
+    public boolean isDead() {
+        return dead;
+    }
+
+    public void setDead(boolean dead) {
+        this.dead = dead;
     }
 }

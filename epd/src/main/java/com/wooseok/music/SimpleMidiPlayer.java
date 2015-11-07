@@ -33,7 +33,7 @@ public class SimpleMidiPlayer {
             }
         }
         tracks = new ArrayList<SimpleTrackPlayer>();
-        int offset = 1792 / (int)bpm;//1792 / (int)bpm;
+        int offset = 2048 / (int)bpm;//1792 / (int)bpm;//1792 / (int)bpm;
 
         for(int i = 1; i < midiFile.getTrackCount() && i < THREADCOUNT; i++) {
             SimpleTrackPlayer tempSTP = new SimpleTrackPlayer(ctx, midiFile.getTracks().get(i), i, volume, offset);

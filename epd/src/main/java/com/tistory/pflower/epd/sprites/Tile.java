@@ -33,7 +33,7 @@ public class Tile extends Cube{
         setHeight(HEIGHT);
 
         setCullingEnabled(true);
-        setCurrentTileIndex(0); // rnd.nextInt(TILE_MAX_IDX)
+        setCurrentTileIndex(rnd.nextInt(TILE_MAX_IDX)); // rnd.nextInt(TILE_MAX_IDX)
     }
 
     public void clean() {

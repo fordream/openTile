@@ -1,7 +1,10 @@
 package com.tistory.pflower.epd.scene;
 
 
+import android.graphics.Typeface;
+
 import com.tistory.pflower.epd.gameLogic.TileManager;
+import com.tistory.pflower.epd.sprites.EffectCube;
 import com.wooseok.music.SimpleMidiPlayer;
 import com.tistory.pflower.epd.BaseActivity;
 import com.tistory.pflower.epd.GameLoopUpdateHandler;
@@ -24,13 +27,18 @@ import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.text.Text;
 import org.andengine.input.touch.TouchEvent;
+import org.andengine.opengl.font.Font;
+import org.andengine.opengl.font.FontFactory;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
+import org.andengine.util.color.Color;
 
 import java.util.Random;
 
 
 public class GameScene extends Scene implements IOnSceneTouchListener {
+    private final Font mFont;
     SimpleMidiPlayer simpleMidiPlayer;
     Camera mCamera;
     Random rand = new Random(System.currentTimeMillis());
@@ -42,6 +50,8 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
     public float targetX;
     public float targetY;
 
+    Text scores;
+
     private static Sprite[] levelBackground = {
             new Sprite(0, 0, ResourceManager.getSharedInstance().getResourceByName("woodenTx"), BaseActivity.getSharedInstance().getVertexBufferObjectManager())
     };
@@ -49,6 +59,13 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
     public GameScene() {
         simpleMidiPlayer = new SimpleMidiPlayer(BaseActivity.getSharedInstance().getApplicationContext(), ResourceManager.getSharedInstance().getMidiFileByName("test3"), 0.4f);
         tileLayer = new TileLayer();
+        this.mFont = FontFactory.create(BaseActivity.getSharedInstance().getFontManager(), BaseActivity.getSharedInstance().getTextureManager(), 256, 256, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 48);
+        this.mFont.load();
+
+        scores = new Text(0, 0, mFont, "점수 : XXXXX", BaseActivity.getSharedInstance().getVertexBufferObjectManager());
+        scores.setPosition(BaseActivity.CAMERA_WIDTH / 2 - scores.getWidth(), BaseActivity.CAMERA_HEIGHT - scores.getHeight());
+        scores.setColor(Color.WHITE);
+
 
         for(Sprite _l : levelBackground) {
             _l.setScaleCenter(_l.getWidth() / 2, _l.getHeight() / 2);
@@ -64,6 +81,7 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
         attachChild(bgTexture);
         attachChild(tileLayer);
         setBackground(bg);
+        attachChild(scores);
 
         setOnSceneTouchListener(this);
         resetValues();
@@ -184,6 +202,15 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
         synchronized (this) {
             simpleMidiPlayer.tickAndPlay(pSecondsElapsed);
             TileManager.getSharedInstance().tick(pSecondsElapsed);
+
+            if(Hero.getSharedInstance().isDead())
+            {
+                BaseActivity.getSharedInstance().setCurrentScene(new ResultScene(BaseActivity.getSharedInstance().mCamera, EffectCube.score));
+            }
+            else
+            {
+                scores.setText("점수 : " + EffectCube.score);
+            }
         }
 
     }

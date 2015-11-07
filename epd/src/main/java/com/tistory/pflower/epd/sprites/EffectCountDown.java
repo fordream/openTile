@@ -3,6 +3,7 @@ package com.tistory.pflower.epd.sprites;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.DelayModifier;
 
+import java.util.LinkedList;
 import java.util.Random;
 
 /**
@@ -13,8 +14,12 @@ public class EffectCountDown extends Cube{
     public float timer;
     public boolean isFinished;
 
+    LinkedList<Float> arrival;
+
     public EffectCountDown() {
         super("num");
+
+        arrival = new LinkedList<>();
 
         setWidth(WIDTH);
         setHeight(HEIGHT);
@@ -25,12 +30,15 @@ public class EffectCountDown extends Cube{
         init();
 
         isFinished = true;
+
+        timer = 0.0f;
     }
 
     public void init() {
 
+        arrival.add(timer + 3.0f);
+
         this.setVisible(true);
-        timer = 3.0f;
         isFinished = false;
     }
 
@@ -38,16 +46,21 @@ public class EffectCountDown extends Cube{
     protected void onManagedUpdate(float pSecondsElapsed) {
         super.onManagedUpdate(pSecondsElapsed);
 
-        if(timer > 0.0f) {
-            setCurrentTileIndex( (int)timer );
-            timer -= pSecondsElapsed;
+        timer += pSecondsElapsed;
+
+        if(arrival.peek() != null) {
+
+            if (arrival.peek() - timer > 0.0f) {
+                setCurrentTileIndex((int) (arrival.peek() - timer) < 3 ?  (int)(arrival.peek() - timer) : 3 );
+            } else {
+                arrival.poll();
+            }
         }
         else {
             setCurrentTileIndex(3);
             this.setVisible(false);
             isFinished = true;
         }
-
 
     }
 }
