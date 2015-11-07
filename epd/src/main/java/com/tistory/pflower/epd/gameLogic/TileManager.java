@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.tistory.pflower.epd.layer.TileLayer;
+import com.wooseok.music.SimpleNotePlayer;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -44,20 +45,21 @@ public class TileManager {
 
         mSumElapsed += pElapsedSecond;
 
-        EffectEvent e = eventQueue.peek();
+        EffectEvent e = eventQueue.poll();
 
-        while(e != null && eventQueue.peek().pExplodeSec > pElapsedSecond) {
-            EffectEvent ee = eventQueue.poll();
-            TileLayer.getInstance().At(ee.insturNum).setExplosion(ee.insturNum, 3.0f);
+        while(e != null && e.pExplodeSec < mSumElapsed) {
+            Log.d("popEvent", e.pExplodeSec + " " +mSumElapsed);
+            TileLayer.getInstance().At(e.insturNum).setExplosion(e, 3.0f);
+            e = eventQueue.poll();
         }
     }
 
-    public void pushEvent(int insturID, int tone, float pExplodeSec) {
+    public void pushEvent(int insturID, int tone, float pExplodeSec, SimpleNotePlayer simpleNotePlayer) {
 
         Log.d("pushEvent", insturID + " " + tone + " " + pExplodeSec);
 
         EffectEvent e = EventPool.getSharedInstance().obtainPoolItem();
-        e.init(insturID, tone, pExplodeSec);
+        e.init(insturID, tone, pExplodeSec, simpleNotePlayer);
         eventQueue.add( e );
     }
 }

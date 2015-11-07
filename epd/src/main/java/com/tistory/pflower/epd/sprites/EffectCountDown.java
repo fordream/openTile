@@ -43,6 +43,7 @@ public class EffectCountDown extends Cube{
             timer -= pSecondsElapsed;
         }
         else {
+            setCurrentTileIndex(3);
             this.setVisible(false);
             isFinished = true;
         }

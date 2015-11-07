@@ -58,8 +58,8 @@ public class SimpleTrackPlayer implements Runnable{
         simpleNotePlayer.playSound(note, volume, length);
     }
 
-    public synchronized void pushExplode(int insturID, int tone, float pExplodeSec) {
-        TileManager.getSharedInstance().pushEvent(insturID, tone, pExplodeSec);
+    public synchronized void pushExplode(int insturID, int tone, float pExplodeSec, SimpleNotePlayer simpleNotePlayer) {
+        TileManager.getSharedInstance().pushEvent(insturID, tone, pExplodeSec, simpleNotePlayer);
     }
 
     public void tickAndPlay() {
@@ -68,21 +68,14 @@ public class SimpleTrackPlayer implements Runnable{
             //If midi tick == My Tick, play a note!
             while(true) {
 
-                if(event.getTick() - event.getDelta() <= tick + 15) {
-                    
-                    if(event instanceof NoteOn) {
-                        NoteOn noteOn = (NoteOn)event;
-                        simpleNotePlayer.playSound(noteOn.getNoteValue(), volume, 1);
-                        pushExplode(InstruNum, noteOn.getNoteValue(), tick * 0.2f);
-                    }
-
-                }
-
-                if(event.getTick() - event.getDelta() <= tick) {
+                if(event.getTick() - event.getDelta() <= tick + 1000 * 3) {
                     //Log.d("Tick", "tick :" + tick + " + " + System.currentTimeMillis() );
+
                     if(event instanceof NoteOn) {
                         NoteOn noteOn = (NoteOn)event;
-                        simpleNotePlayer.playSound(noteOn.getNoteValue(), volume, 1);
+                        //simpleNotePlayer.playSound(noteOn.getNoteValue(), volume, 1);
+
+                        pushExplode(InstruNum, noteOn.getNoteValue(), (tick) / 1000, simpleNotePlayer);
                     }
                     if(it.hasNext()) {
                         event = it.next();

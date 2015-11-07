@@ -10,6 +10,8 @@ import com.tistory.pflower.epd.BaseActivity;
 import com.tistory.pflower.epd.ResourceManager;
 import com.tistory.pflower.epd.gameLogic.TileManager;
 import com.tistory.pflower.epd.sprites.Cube;
+import com.tistory.pflower.epd.sprites.EffectCountDown;
+import com.tistory.pflower.epd.sprites.EffectCube;
 import com.tistory.pflower.epd.sprites.Hero;
 import com.tistory.pflower.epd.sprites.Tile;
 
@@ -28,6 +30,7 @@ public class TileLayer extends Entity {
     public static final int TILE_CNT = 16;
     public static final int WIDTH_CNT = 4;
     private static final int BATCH_SPRITE_CNT = 16;
+
 
 
     public static TileLayer instance = null;
@@ -77,11 +80,27 @@ public class TileLayer extends Entity {
             }
         }
 
+
+
+
+
         setBatchSprites();
 
         hero = new Hero();
 
         attachChild(hero);
+
+
+        for(int i = 0; i < WIDTH_CNT; i ++) {
+            for (int j = 0; j < WIDTH_CNT; j++) {
+
+                attachChild(tiles[i * WIDTH_CNT + j].effect);
+                attachChild(tiles[i * WIDTH_CNT + j].effect.text);
+
+                tiles[i * WIDTH_CNT + j].effect.setLocation(j, i);
+            }
+        }
+     sortChildren();
     }
 
     public void setBatchSprites()
@@ -198,4 +217,7 @@ public class TileLayer extends Entity {
         return tiles[idx];
     }
 
+    public void attachOverlay(EffectCube effect) {
+        attachChild(effect);
+    }
 }
