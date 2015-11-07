@@ -129,6 +129,11 @@ public class ResourceManager {
         _tiled = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "slime.png", 4, 1);
         tiledResourceMap.put("slime", _tiled);
 
+        _tiled = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "sprite.png", 4, 1);
+        tiledResourceMap.put("sprite", _tiled);
+
+        _tiled = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "num.png", 4, 1);
+        tiledResourceMap.put("num", _tiled);
 
         try{
             gameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(1, 1, 1));

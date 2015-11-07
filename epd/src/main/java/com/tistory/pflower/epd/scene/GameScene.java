@@ -1,6 +1,7 @@
 package com.tistory.pflower.epd.scene;
 
 
+import com.tistory.pflower.epd.gameLogic.TileManager;
 import com.wooseok.music.SimpleMidiPlayer;
 import com.tistory.pflower.epd.BaseActivity;
 import com.tistory.pflower.epd.GameLoopUpdateHandler;
@@ -181,7 +182,8 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 
     public void update(float pSecondsElapsed) {
         synchronized (this) {
-            simpleMidiPlayer.tickAndPlay();
+            simpleMidiPlayer.tickAndPlay(pSecondsElapsed);
+            TileManager.getSharedInstance().tick(pSecondsElapsed);
         }
 
     }

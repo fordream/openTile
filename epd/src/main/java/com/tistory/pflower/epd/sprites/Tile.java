@@ -9,6 +9,9 @@ import org.andengine.entity.sprite.TiledSprite;
 
 import com.tistory.pflower.epd.ResourceManager;
 import com.tistory.pflower.epd.BaseActivity;
+import com.tistory.pflower.epd.gameLogic.EffectEvent;
+import com.tistory.pflower.epd.layer.TileLayer;
+import com.wooseok.music.SimpleNotePlayer;
 
 import java.util.Random;
 
@@ -18,10 +21,13 @@ public class Tile extends Cube{
 
     Random rnd;
 
+    public EffectCube effect;
+
     public Tile(int seed) {
         super("tile");
 
         rnd = new Random(seed);
+        effect = new EffectCube();
 
         setWidth(WIDTH);
         setHeight(HEIGHT);
@@ -46,19 +52,9 @@ public class Tile extends Cube{
         setTileModifier();
     }
 
-    public void setExplosion(int insturID, float sec) {
-        DelayModifier mod = new DelayModifier(sec);
-        if(insturID % 5 == 0) {
+    public void setExplosion(EffectEvent e, float sec) {
 
-        }else if(insturID % 5 == 1) {
-
-        }else if(insturID % 5 == 2) {
-
-        }else if(insturID % 5 == 3) {
-
-        }else if(insturID % 5 == 4) {
-
-        }
+        effect.setExplosion(e, sec);
     }
 
     public void setTileModifier()
@@ -81,5 +77,12 @@ public class Tile extends Cube{
     @Override
     protected void onManagedUpdate(float pSecondsElapsed) {
         super.onManagedUpdate(pSecondsElapsed);
+
+        effect.setX(getX());
+        effect.setY(getY() - 64 - 128);
+
+        effect.text.setX(getX());
+        effect.text.setY(getY() - 64);
+
     }
 }
