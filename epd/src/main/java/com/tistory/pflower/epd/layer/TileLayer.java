@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.tistory.pflower.epd.BaseActivity;
 import com.tistory.pflower.epd.ResourceManager;
+import com.tistory.pflower.epd.gameLogic.TileManager;
 import com.tistory.pflower.epd.sprites.Cube;
 import com.tistory.pflower.epd.sprites.Hero;
 import com.tistory.pflower.epd.sprites.Tile;
@@ -27,6 +28,9 @@ public class TileLayer extends Entity {
     public static final int TILE_CNT = 16;
     public static final int WIDTH_CNT = 4;
     private static final int BATCH_SPRITE_CNT = 16;
+
+
+    public static TileLayer instance = null;
 
     Random rnd = new Random(System.currentTimeMillis());
 
@@ -50,7 +54,14 @@ public class TileLayer extends Entity {
                     -2, 2,
             };
 
+    public static TileLayer getInstance()
+    {
+        return instance;
+    }
+
     public TileLayer() {
+        instance = this;
+
 
         tiles = new Tile[TILE_CNT];
 
@@ -183,5 +194,8 @@ public class TileLayer extends Entity {
 
     }
 
+    public Tile At(int idx) {
+        return tiles[idx];
+    }
 
 }

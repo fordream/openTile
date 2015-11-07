@@ -43,11 +43,20 @@ public class SimpleTrackPlayer implements Runnable{
         simpleNotePlayer.playSound(note, volume, length);
     }
 
+    public synchronized void pushExplode() {
+
+    }
+
     public void tickAndPlay() {
         if(playable) {
             tick+=offset;
             //If midi tick == My Tick, play a note!
             while(true) {
+
+                if(event.getTick() - event.getDelta() <= tick + 5) {
+
+                }
+
                 if(event.getTick() - event.getDelta() <= tick) {
                     if(event instanceof NoteOn) {
                         NoteOn noteOn = (NoteOn)event;

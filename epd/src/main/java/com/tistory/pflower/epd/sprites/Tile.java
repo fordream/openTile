@@ -46,6 +46,21 @@ public class Tile extends Cube{
         setTileModifier();
     }
 
+    public void setExplosion(int insturID, float sec) {
+        DelayModifier mod = new DelayModifier(sec);
+        if(insturID % 5 == 0) {
+
+        }else if(insturID % 5 == 1) {
+
+        }else if(insturID % 5 == 2) {
+
+        }else if(insturID % 5 == 3) {
+
+        }else if(insturID % 5 == 4) {
+
+        }
+    }
+
     public void setTileModifier()
     {
         final Tile _this = this;

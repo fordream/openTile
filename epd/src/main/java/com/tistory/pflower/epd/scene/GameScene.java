@@ -188,7 +188,7 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
 
     public void update(float pSecondsElapsed) {
         synchronized (this) {
-            simpleMidiPlayer.gogo();
+            //simpleMidiPlayer.gogo();
         }
 
     }
