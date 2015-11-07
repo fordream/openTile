@@ -68,7 +68,7 @@ public class SimpleNotePlayer extends Thread{
 
 	
 	private int imgKeyWidth, programNo, octaveShift, trackNo;
-	
+
 	private Context mCtx;
 
 	public SimpleNotePlayer(Context ctx, int instrumentNo, int trackNo) {
@@ -82,7 +82,10 @@ public class SimpleNotePlayer extends Thread{
 		new Runnable(){
 			@Override
 			public void run() {
-				sPool.play(soundKey, volume, volume, 0, 0, rate);
+				// C0 in this program is 0 -> A0 in this program is 9
+				// A0 in general MIDI is 21
+				// So, offset is 12
+				sPool.play(soundKey-12, volume, volume, 0, 0, rate);
 			}
 		}.run();
 	}
@@ -99,7 +102,6 @@ public class SimpleNotePlayer extends Thread{
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
 				String dir = mCtx.getDir("", mCtx.MODE_PRIVATE).getAbsolutePath();
 				for(int i=1;i<=OCTAVE_COUNT;i++){
 					for (int j=0;j<PITCHES.length;j++){
