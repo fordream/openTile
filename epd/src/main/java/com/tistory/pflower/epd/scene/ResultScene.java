@@ -25,7 +25,7 @@ public class ResultScene extends CameraScene implements IOnSceneTouchListener {
         super(mCamera);
         activity = BaseActivity.getSharedInstance();
         //setBackgroundEnabled(false);
-        ResourceManager.getSharedInstance().getSoundByName("gameover.mp3").play();
+        ResourceManager.getSharedInstance().getMediaByName("gameover").start();
         setBackground(new Background(new Color(0f, 0f, 0f)));
 
         float accureay = 0;
