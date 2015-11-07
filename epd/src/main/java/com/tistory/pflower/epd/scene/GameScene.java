@@ -46,7 +46,7 @@ public class GameScene extends Scene implements IOnSceneTouchListener {
     };
 
     public GameScene() {
-        simpleMidiPlayer = new SimpleMidiPlayer(BaseActivity.getSharedInstance().getApplicationContext(), ResourceManager.getSharedInstance().getMidiFileByName("test"), 0.4f);
+        simpleMidiPlayer = new SimpleMidiPlayer(BaseActivity.getSharedInstance().getApplicationContext(), ResourceManager.getSharedInstance().getMidiFileByName("test3"), 0.4f);
         tileLayer = new TileLayer();
 
         for(Sprite _l : levelBackground) {

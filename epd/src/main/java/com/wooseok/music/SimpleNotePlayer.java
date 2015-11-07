@@ -91,7 +91,7 @@ public class SimpleNotePlayer extends Thread{
 				// C0 in this program is 0 -> A0 in this program is 9
 				// A0 in general MIDI is 21
 				// So, offset is 12
-				if(soundKey == 0) return;
+				if(soundKey < 12) return;
 				sPool.play(soundKey-12, volume, volume, 0, 0, rate);
 			}
 		}.run();

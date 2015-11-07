@@ -33,13 +33,14 @@ public class SimpleTrackPlayer implements Runnable{
         return finished;
     }
 
-    public SimpleTrackPlayer(Context ctx, MidiTrack midiTrack, int trackNo, float volume) {
+    public SimpleTrackPlayer(Context ctx, MidiTrack midiTrack, int trackNo, float volume, int offset) {
+        this.offset = offset;
         it = midiTrack.getEvents().iterator();
         this.volume = volume;
         Random random = new Random();
         if(it.hasNext())  {
             event= it.next();
-            simpleNotePlayer = new SimpleNotePlayer(ctx, random.nextInt(40), trackNo);
+            simpleNotePlayer = new SimpleNotePlayer(ctx, random.nextInt(30)+1, trackNo);
             playable = true;
             finished = false;
         }
