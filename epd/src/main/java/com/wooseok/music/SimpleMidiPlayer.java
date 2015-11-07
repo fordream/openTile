@@ -33,16 +33,17 @@ public class SimpleMidiPlayer {
             }
         }
         tracks = new ArrayList<SimpleTrackPlayer>();
-        int offset = 1400 / (int)bpm;
+        int offset = 1600 / (int)bpm;
 
         for(int i = 1; i < midiFile.getTrackCount() && i < THREADCOUNT; i++) {
             SimpleTrackPlayer tempSTP = new SimpleTrackPlayer(ctx, midiFile.getTracks().get(i), i, volume, offset);
             tempSTP.playSound(12, 0, 1);
             tracks.add(tempSTP);
+            tempSTP.setInstruNum(i);
         }
     }
 
-    public void tickAndPlay() {
+    public void tickAndPlay(float pSecondsElapsed) {
         for(int i = 0; i < tracks.size(); i++) {
             SimpleTrackPlayer stp = tracks.get(i);
             if(stp.isFinished()) {

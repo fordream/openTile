@@ -18,10 +18,13 @@ public class Tile extends Cube{
 
     Random rnd;
 
+    EffectCube effect;
+
     public Tile(int seed) {
         super("tile");
 
         rnd = new Random(seed);
+        effect = new EffectCube();
 
         setWidth(WIDTH);
         setHeight(HEIGHT);
@@ -47,18 +50,8 @@ public class Tile extends Cube{
     }
 
     public void setExplosion(int insturID, float sec) {
-        DelayModifier mod = new DelayModifier(sec);
-        if(insturID % 5 == 0) {
 
-        }else if(insturID % 5 == 1) {
-
-        }else if(insturID % 5 == 2) {
-
-        }else if(insturID % 5 == 3) {
-
-        }else if(insturID % 5 == 4) {
-
-        }
+        effect.setExplosion(insturID, sec);
     }
 
     public void setTileModifier()

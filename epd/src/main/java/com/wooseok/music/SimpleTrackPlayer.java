@@ -1,10 +1,12 @@
 package com.wooseok.music;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.leff.midi.MidiTrack;
 import com.leff.midi.event.MidiEvent;
 import com.leff.midi.event.NoteOn;
+import com.tistory.pflower.epd.gameLogic.TileManager;
 
 import org.andengine.util.call.Callable;
 
@@ -23,6 +25,7 @@ public class SimpleTrackPlayer implements Runnable{
     private MidiEvent event;
     private float volume = 0.5f;
     private boolean finished = true;
+    private int InstruNum;
 
     public void cleaer() {
         if(simpleNotePlayer != null)
@@ -33,6 +36,11 @@ public class SimpleTrackPlayer implements Runnable{
         return finished;
     }
 
+    public void setInstruNum(int i)
+    {
+        this.InstruNum = i;
+    }
+    
     public SimpleTrackPlayer(Context ctx, MidiTrack midiTrack, int trackNo, float volume, int offset) {
         this.offset = offset;
         it = midiTrack.getEvents().iterator();
@@ -50,8 +58,8 @@ public class SimpleTrackPlayer implements Runnable{
         simpleNotePlayer.playSound(note, volume, length);
     }
 
-    public synchronized void pushExplode() {
-
+    public synchronized void pushExplode(int insturID, int tone, float pExplodeSec) {
+        TileManager.getSharedInstance().pushEvent(insturID, tone, pExplodeSec);
     }
 
     public void tickAndPlay() {
@@ -60,11 +68,18 @@ public class SimpleTrackPlayer implements Runnable{
             //If midi tick == My Tick, play a note!
             while(true) {
 
-                if(event.getTick() - event.getDelta() <= tick + 5) {
+                if(event.getTick() - event.getDelta() <= tick + 15) {
+                    
+                    if(event instanceof NoteOn) {
+                        NoteOn noteOn = (NoteOn)event;
+                        simpleNotePlayer.playSound(noteOn.getNoteValue(), volume, 1);
+                        pushExplode(InstruNum, noteOn.getNoteValue(), tick * 0.2f);
+                    }
 
                 }
 
                 if(event.getTick() - event.getDelta() <= tick) {
+                    //Log.d("Tick", "tick :" + tick + " + " + System.currentTimeMillis() );
                     if(event instanceof NoteOn) {
                         NoteOn noteOn = (NoteOn)event;
                         simpleNotePlayer.playSound(noteOn.getNoteValue(), volume, 1);

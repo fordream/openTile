@@ -1,7 +1,13 @@
 package com.tistory.pflower.epd.gameLogic;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+
 import com.tistory.pflower.epd.layer.TileLayer;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Queue;
 
 /**
@@ -11,11 +17,13 @@ public class TileManager {
 
     public static TileManager instance = null;
 
-    public Queue<EffectEvent> eventQueue;
     public static float mSumElapsed;
+
+    Queue<EffectEvent> eventQueue;
 
     public TileManager() {
         reset();
+        eventQueue = new LinkedList<EffectEvent>();
     }
 
 
@@ -32,7 +40,7 @@ public class TileManager {
         return instance;
     }
 
-    public void tick(float pElapsedSecond) {
+    public synchronized void tick(float pElapsedSecond) {
 
         mSumElapsed += pElapsedSecond;
 
@@ -45,6 +53,8 @@ public class TileManager {
     }
 
     public void pushEvent(int insturID, int tone, float pExplodeSec) {
+
+        Log.d("pushEvent", insturID + " " + tone + " " + pExplodeSec);
 
         EffectEvent e = EventPool.getSharedInstance().obtainPoolItem();
         e.init(insturID, tone, pExplodeSec);
